@@ -85,13 +85,13 @@ export default async function AppOverviewPage() {
   const systemState = source === "postgres" ? "live stream" : "demo stream";
 
   return (
-    <main className="observatory-grid min-h-[calc(100vh-var(--app-header-height))] px-5 py-8 lg:px-8">
+    <main className="observatory-grid min-h-[calc(100vh-var(--app-header-height))] px-4 py-5 sm:px-5 sm:py-8 lg:px-8">
       <section className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_360px] xl:items-stretch">
         <div className="min-w-0">
           <SystemLabel icon={Radar} tone="signal">
             Overview / signal observatory
           </SystemLabel>
-          <h1 className="mt-3 max-w-4xl text-4xl font-semibold tracking-normal lg:text-5xl">
+          <h1 className="mt-3 max-w-4xl text-3xl font-semibold tracking-normal sm:text-4xl lg:text-5xl">
             Product telemetry control room
           </h1>
           <p className="mt-4 max-w-4xl text-[var(--muted)]">
@@ -124,7 +124,7 @@ export default async function AppOverviewPage() {
         </TelemetryPanel>
       </section>
 
-      <OpenMetricRail className="mt-8 md:grid-cols-2 xl:grid-cols-4">
+      <OpenMetricRail className="mt-6 grid-cols-2 sm:mt-8 md:grid-cols-2 xl:grid-cols-4">
         {overviewMetrics.map((metric) => {
           const signal = getMetricSignal(metric.label);
 
@@ -143,14 +143,14 @@ export default async function AppOverviewPage() {
         })}
       </OpenMetricRail>
 
-      <section className="mt-8 grid gap-6 xl:grid-cols-[minmax(0,1.18fr)_minmax(340px,0.82fr)]">
+      <section className="mt-6 grid gap-6 sm:mt-8 xl:grid-cols-[minmax(0,1.18fr)_minmax(340px,0.82fr)]">
         <TelemetryPanel className="p-5 lg:p-6">
           <div className="grid gap-4 border-b border-[var(--border-soft)] pb-5 lg:grid-cols-[minmax(0,1fr)_260px] lg:items-start">
             <div>
               <SystemLabel icon={Activity} tone="signal">
                 Main signal
               </SystemLabel>
-              <h2 className="mt-3 text-3xl font-semibold">
+              <h2 className="mt-3 text-2xl font-semibold sm:text-3xl">
                 Usage cools after mid-July
               </h2>
             </div>

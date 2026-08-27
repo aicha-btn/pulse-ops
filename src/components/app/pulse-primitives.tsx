@@ -228,24 +228,28 @@ export function SignalMetric({
   value: string;
 }) {
   return (
-    <TelemetryPanel className="group min-h-[210px] p-4">
+    <TelemetryPanel className="group min-h-[184px] p-3 sm:min-h-[210px] sm:p-4">
       <div className="flex items-start justify-between gap-3">
         <SystemLabel tone={tone}>{label}</SystemLabel>
         <span className={`font-mono text-xs ${toneClasses[tone].text}`}>
           {delta}
         </span>
       </div>
-      <p className="mt-5 text-5xl font-semibold leading-none">{value}</p>
-      <div className="mt-5">
+      <p className="mt-4 text-4xl font-semibold leading-none sm:mt-5 sm:text-5xl">
+        {value}
+      </p>
+      <div className="mt-4 sm:mt-5">
         <MiniTrace tone={tone} variant={trace} />
       </div>
-      <div className="mt-4 flex items-start gap-3">
+      <div className="mt-3 flex items-start gap-3 sm:mt-4">
         <span className={`mt-1 h-2 w-2 rounded-full ${toneClasses[tone].dot}`} />
         <div>
           <p className={`font-mono text-xs uppercase ${toneClasses[tone].text}`}>
             {status}
           </p>
-          <p className="mt-1 text-sm leading-6 text-[var(--muted)]">{note}</p>
+          <p className="mt-1 text-xs leading-5 text-[var(--muted)] sm:text-sm sm:leading-6">
+            {note}
+          </p>
         </div>
       </div>
     </TelemetryPanel>

@@ -33,7 +33,7 @@ const funnelSteps = [
 export default function Home() {
   return (
     <main className="spectral-tile min-h-screen text-[var(--ink)]">
-      <section className="hero-scene relative min-h-[92svh] overflow-hidden px-5 text-[var(--paper)] sm:px-8 lg:px-12">
+      <section className="hero-scene relative min-h-[680px] overflow-hidden px-4 text-[var(--paper)] sm:min-h-[92svh] sm:px-8 lg:px-12">
         <div className="signal-sweep pointer-events-none absolute inset-y-0 left-0 w-2/3" />
 
         <div className="pointer-events-none absolute inset-0 opacity-90">
@@ -41,8 +41,8 @@ export default function Home() {
           <div className="absolute bottom-[34%] left-[4%] h-[1px] w-[62%] bg-[linear-gradient(90deg,transparent,var(--violet),transparent)]" />
         </div>
 
-        <header className="relative z-10 mx-auto flex max-w-7xl items-center justify-between py-6">
-          <PulseBrand />
+        <header className="relative z-10 mx-auto flex max-w-7xl items-center justify-between py-4 sm:py-6">
+          <PulseBrand compact className="max-w-[210px] sm:max-w-none" />
           <nav className="hidden items-center gap-8 text-sm text-[rgba(244,241,232,0.72)] md:flex">
             <a href="#signals" className="transition hover:text-[var(--cyan)]">
               Signals
@@ -59,28 +59,28 @@ export default function Home() {
           </nav>
         </header>
 
-        <div className="relative z-10 mx-auto grid max-w-7xl items-end gap-12 pb-16 pt-20 lg:grid-cols-[1fr_420px] lg:pb-24 lg:pt-28">
-          <div className="max-w-4xl">
-            <p className="mb-6 inline-flex border border-[rgba(34,223,197,0.38)] bg-[rgba(34,223,197,0.08)] px-3 py-2 font-mono text-xs uppercase text-[var(--cyan)]">
+        <div className="relative z-10 mx-auto grid max-w-7xl items-end gap-8 pb-10 pt-14 sm:gap-12 sm:pb-16 sm:pt-20 lg:grid-cols-[1fr_420px] lg:pb-24 lg:pt-28">
+          <div className="min-w-0 max-w-4xl">
+            <p className="mb-5 inline-flex max-w-full border border-[rgba(34,223,197,0.38)] bg-[rgba(34,223,197,0.08)] px-3 py-2 font-mono text-[11px] uppercase text-[var(--cyan)] sm:mb-6 sm:text-xs">
               Product analytics for B2B teams
             </p>
-            <h1 className="max-w-4xl text-6xl font-semibold leading-none text-[var(--paper)] sm:text-7xl lg:text-8xl">
+            <h1 className="max-w-4xl text-5xl font-semibold leading-none text-[var(--paper)] sm:text-7xl lg:text-8xl">
               PulseOps
             </h1>
-            <p className="mt-7 max-w-2xl text-xl leading-8 text-[rgba(244,241,232,0.78)]">
+            <p className="mt-5 max-w-2xl text-lg leading-7 text-[rgba(244,241,232,0.78)] sm:mt-7 sm:text-xl sm:leading-8">
               See activation, understand drop-offs, and act before customer
               accounts go silent.
             </p>
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row">
               <Link
                 href="/app"
-                className="inline-flex h-12 items-center justify-center border border-[var(--mint)] bg-[var(--mint)] px-6 text-sm font-semibold text-[var(--night)] transition hover:bg-transparent hover:text-[var(--mint)]"
+                className="inline-flex h-12 w-full items-center justify-center border border-[var(--mint)] bg-[var(--mint)] px-6 text-sm font-semibold text-[var(--night)] transition hover:bg-transparent hover:text-[var(--mint)] sm:w-auto"
               >
                 Open product preview
               </Link>
               <Link
                 href="/app/companies"
-                className="inline-flex h-12 items-center justify-center border border-[rgba(244,241,232,0.22)] px-5 text-sm font-semibold text-[var(--paper)] transition hover:border-[var(--paper)]"
+                className="inline-flex h-12 w-full items-center justify-center border border-[rgba(244,241,232,0.22)] px-5 text-sm font-semibold text-[var(--paper)] transition hover:border-[var(--paper)] sm:w-auto"
               >
                 Inspect account health
               </Link>
@@ -130,17 +130,17 @@ export default function Home() {
 
       <section
         id="signals"
-        className="border-y border-[var(--line)] bg-[var(--paper)] px-5 py-16 sm:px-8 lg:px-12"
+        className="border-y border-[var(--line)] bg-[var(--paper)] px-4 py-12 sm:px-8 sm:py-16 lg:px-12"
       >
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
             <p className="font-mono text-xs uppercase text-[var(--muted)]">
               Decision briefing
             </p>
-            <h2 className="mt-4 max-w-xl text-4xl font-semibold leading-tight sm:text-5xl">
+            <h2 className="mt-4 max-w-xl text-3xl font-semibold leading-tight sm:text-5xl">
               Not more charts. Better product judgment.
             </h2>
-            <p className="mt-5 max-w-xl text-lg leading-8 text-[var(--muted)]">
+            <p className="mt-5 max-w-xl text-base leading-7 text-[var(--muted)] sm:text-lg sm:leading-8">
               PulseOps turns raw product events into activation paths, silent
               accounts, and transparent health scores.
             </p>
@@ -184,7 +184,7 @@ export default function Home() {
 
       <section
         id="health"
-        className="spectral-tile px-5 py-16 sm:px-8 lg:px-12"
+        className="spectral-tile px-4 py-12 sm:px-8 sm:py-16 lg:px-12"
       >
         <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[1fr_0.9fr]">
           <div className="border border-[var(--line-strong)] bg-[var(--paper)] p-5">
@@ -193,7 +193,7 @@ export default function Home() {
                 <p className="font-mono text-xs uppercase text-[var(--muted)]">
                   Activation path
                 </p>
-                <h2 className="mt-3 text-3xl font-semibold">
+                <h2 className="mt-3 text-2xl font-semibold sm:text-3xl">
                   Where accounts lose momentum
                 </h2>
               </div>
@@ -227,7 +227,7 @@ export default function Home() {
             <p className="font-mono text-xs uppercase text-[var(--cyan)]">
               Ingestion check
             </p>
-            <h2 className="mt-3 text-3xl font-semibold">
+            <h2 className="mt-3 text-2xl font-semibold sm:text-3xl">
               Events should feel traceable.
             </h2>
             <TrackEventTester />

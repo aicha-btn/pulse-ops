@@ -3,10 +3,12 @@
 import {
   BellOff,
   Building2,
+  ChevronDown,
   FileCode2,
   FolderKanban,
   LayoutDashboard,
   LogOut,
+  Menu,
   Radio,
   Server,
   SlidersHorizontal,
@@ -175,13 +177,16 @@ export function AppShell({
       </aside>
 
       <div className="lg:pl-64">
-        <header className="sticky top-0 z-20 border-b border-[var(--border-soft)] bg-[rgba(247,248,239,0.82)] px-5 shadow-[0_1px_0_rgba(34,223,197,0.18)] backdrop-blur lg:h-[var(--app-header-height)] lg:px-8">
-          <div className="grid min-h-24 gap-4 py-4 lg:h-full lg:min-h-0 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:py-0">
+        <header className="sticky top-0 z-20 border-b border-[var(--border-soft)] bg-[rgba(247,248,239,0.9)] px-4 shadow-[0_1px_0_rgba(34,223,197,0.18)] backdrop-blur lg:h-[var(--app-header-height)] lg:px-8">
+          <div className="grid gap-3 py-3 md:min-h-24 md:gap-4 md:py-4 lg:h-full lg:min-h-0 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:py-0">
             <div className="flex min-w-0 items-center justify-between gap-3 lg:hidden">
               <PulseBrand compact subtitle={projectName} tone="onLight" />
-              <SignalIndicator label={streamState} tone="signal" />
+              <SignalIndicator
+                label={source === "postgres" ? "live" : "demo"}
+                tone="signal"
+              />
             </div>
-            <div className="grid min-w-0 gap-3 md:grid-cols-[minmax(0,1.1fr)_160px_160px] md:items-center">
+            <div className="hidden min-w-0 gap-3 md:grid md:grid-cols-[minmax(0,1.1fr)_160px_160px] md:items-center">
               <div className="min-w-0">
                 <p className="font-mono text-xs uppercase text-[var(--muted)]">
                   System status
@@ -193,27 +198,12 @@ export function AppShell({
               <HeaderProbe label="last calculation" value={lastCalculationLabel} />
               <HeaderStream value={streamState} />
             </div>
-            <nav className="flex gap-2 overflow-x-auto lg:hidden">
-              {navItems.map((item) => {
-                const isActive = isActivePath(pathname, item.href);
-
-                return (
-                  <Link
-                    aria-current={isActive ? "page" : undefined}
-                    className={`whitespace-nowrap rounded-[var(--radius-sm)] border px-3 py-2 text-sm ${
-                      isActive
-                        ? "border-[rgba(34,223,197,0.42)] bg-[rgba(34,223,197,0.14)] text-[var(--ink)]"
-                        : "border-[var(--line)] bg-[var(--paper)]"
-                    }`}
-                    href={item.href}
-                    key={item.href}
-                  >
-                    {item.label}
-                  </Link>
-                );
-              })}
-            </nav>
-            <div className="flex min-w-0 items-center gap-3 justify-self-start lg:min-w-[220px] lg:justify-self-end">
+            <MobileNavigation
+              authState={authState}
+              pathname={pathname}
+              signOutAction={signOutAction}
+            />
+            <div className="hidden min-w-0 items-center gap-3 justify-self-start sm:flex lg:min-w-[220px] lg:justify-self-end">
               <div className="flex h-9 w-9 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--paper)] text-[var(--signal)]">
                 <UserRound size={15} strokeWidth={1.8} />
               </div>
@@ -243,6 +233,86 @@ export function AppShell({
         {children}
       </div>
     </div>
+  );
+}
+
+function MobileNavigation({
+  authState,
+  pathname,
+  signOutAction,
+}: {
+  authState: ShellAuthState;
+  pathname: string;
+  signOutAction: AppShellProps["signOutAction"];
+}) {
+  const activeItem =
+    navItems.find((item) => isActivePath(pathname, item.href)) ?? navItems[0];
+
+  return (
+    <details className="group lg:hidden">
+      <summary className="flex h-11 cursor-pointer list-none items-center justify-between gap-3 rounded-[var(--radius-sm)] border border-[rgba(23,18,26,0.12)] bg-[var(--paper)] px-3 text-sm font-semibold shadow-[0_1px_0_rgba(34,223,197,0.12)] [&::-webkit-details-marker]:hidden">
+        <span className="inline-flex items-center gap-2">
+          <Menu size={16} strokeWidth={1.8} />
+          Navigate
+        </span>
+        <span className="inline-flex min-w-0 items-center gap-2 font-mono text-xs uppercase text-[var(--muted)]">
+          <span className="truncate">{activeItem.label}</span>
+          <ChevronDown
+            className="transition group-open:rotate-180"
+            size={15}
+            strokeWidth={1.8}
+          />
+        </span>
+      </summary>
+      <div className="mt-2 rounded-[var(--radius-sm)] border border-[rgba(23,18,26,0.12)] bg-[rgba(247,248,239,0.96)] p-2 shadow-[0_18px_50px_rgba(23,18,26,0.12)]">
+        <nav className="grid grid-cols-3 gap-2" aria-label="Mobile navigation">
+          {navItems.map((item) => {
+            const isActive = isActivePath(pathname, item.href);
+            const Icon = item.icon;
+
+            return (
+              <Link
+                aria-current={isActive ? "page" : undefined}
+                className={`flex min-h-14 flex-col items-center justify-center gap-1 rounded-[var(--radius-sm)] border px-2 py-2 text-center text-[11px] font-semibold transition ${
+                  isActive
+                    ? "border-[rgba(34,223,197,0.38)] bg-[rgba(34,223,197,0.14)] text-[var(--ink)]"
+                    : "border-[var(--border-soft)] bg-white/56 text-[var(--muted)] hover:border-[rgba(34,223,197,0.28)] hover:text-[var(--ink)]"
+                }`}
+                href={item.href}
+                key={item.href}
+              >
+                <Icon
+                  className={isActive ? "text-[var(--signal)]" : ""}
+                  size={16}
+                  strokeWidth={1.8}
+                />
+                <span className="max-w-full truncate">{item.label}</span>
+              </Link>
+            );
+          })}
+        </nav>
+        <div className="mt-3 flex items-center justify-between gap-3 border-t border-[var(--border-soft)] pt-3">
+          <div className="min-w-0">
+            <p className="truncate text-sm font-semibold">{authState.email}</p>
+            <p className="mt-1 font-mono text-[10px] uppercase text-[var(--muted)]">
+              {authState.status === "demo" ? "Demo" : "Signed in"}
+            </p>
+          </div>
+          {authState.status === "signed_in" ? (
+            <form action={signOutAction}>
+              <button
+                aria-label="Sign out"
+                className="flex h-9 w-9 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--line)] bg-white/60 text-[var(--muted)] transition hover:border-[var(--signal)] hover:text-[var(--signal)]"
+                title="Sign out"
+                type="submit"
+              >
+                <LogOut size={15} strokeWidth={1.8} />
+              </button>
+            </form>
+          ) : null}
+        </div>
+      </div>
+    </details>
   );
 }
 

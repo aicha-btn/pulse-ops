@@ -21,7 +21,7 @@ export function ActivityChart({ data }: { data: ActivityPoint[] }) {
   const coolingPoint = findLargestCoolingPoint(data);
 
   return (
-    <div className="h-80 w-full">
+    <div className="h-64 w-full sm:h-80">
       <ResponsiveContainer height="100%" width="100%">
         <AreaChart
           data={data}
