@@ -1,4 +1,5 @@
 import { TrackEventTester } from "@/components/track-event-tester";
+import { PulseBrand } from "@/components/pulse-brand";
 import Link from "next/link";
 
 const accountSignals = [
@@ -41,9 +42,7 @@ export default function Home() {
         </div>
 
         <header className="relative z-10 mx-auto flex max-w-7xl items-center justify-between py-6">
-          <a className="font-mono text-sm uppercase text-[var(--paper)]" href="#">
-            PulseOps
-          </a>
+          <PulseBrand />
           <nav className="hidden items-center gap-8 text-sm text-[rgba(244,241,232,0.72)] md:flex">
             <a href="#signals" className="transition hover:text-[var(--cyan)]">
               Signals

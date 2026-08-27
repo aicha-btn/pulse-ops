@@ -1,8 +1,9 @@
-import { Activity, ArrowRight, ShieldCheck } from "lucide-react";
+import { ArrowRight, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import type { ReactNode } from "react";
 
+import { PulseBrand } from "@/components/pulse-brand";
 import { getAuthState } from "@/features/auth/session";
 
 import { signInAction, signUpAction } from "./actions";
@@ -35,13 +36,8 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
 
   return (
     <main className="hero-scene min-h-screen px-5 py-6 text-[var(--paper)] sm:px-8 lg:px-12">
-      <header className="mx-auto flex max-w-6xl items-center justify-between">
-        <Link className="flex items-center gap-3 font-mono text-sm uppercase" href="/">
-          <span className="flex h-9 w-9 items-center justify-center border border-[rgba(244,241,232,0.42)]">
-            <Activity size={17} strokeWidth={1.8} />
-          </span>
-          PulseOps
-        </Link>
+      <header className="mx-auto flex max-w-7xl items-center justify-between">
+        <PulseBrand />
         <Link
           className="text-sm font-semibold text-[rgba(244,241,232,0.72)] transition hover:text-[var(--cyan)]"
           href="/"
@@ -50,7 +46,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
         </Link>
       </header>
 
-      <section className="mx-auto grid max-w-6xl gap-10 py-16 lg:grid-cols-[0.95fr_440px] lg:items-center lg:py-24">
+      <section className="mx-auto grid max-w-7xl gap-10 py-16 lg:grid-cols-[0.95fr_440px] lg:items-center lg:py-24">
         <div>
           <p className="font-mono text-xs uppercase text-[var(--cyan)]">
             Secure workspace
@@ -124,7 +120,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
                   <input
                     className="mt-2 h-12 w-full border border-[rgba(244,241,232,0.2)] bg-[rgba(244,241,232,0.06)] px-3 text-sm text-[var(--paper)] outline-none transition placeholder:text-[rgba(244,241,232,0.36)] focus:border-[var(--cyan)]"
                     name="email"
-                    placeholder="aicha@example.com"
+                    placeholder="user@example.com"
                     required
                     type="email"
                   />

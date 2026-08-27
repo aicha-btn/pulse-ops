@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  Activity,
   BellOff,
   Building2,
   FileCode2,
@@ -19,6 +18,7 @@ import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 
 import { SignalIndicator } from "@/components/app/pulse-primitives";
+import { PulseBrand } from "@/components/pulse-brand";
 import type { AuthState } from "@/features/auth/session";
 
 type ShellAuthState = Extract<
@@ -110,20 +110,7 @@ export function AppShell({
       <aside className="night-lattice fixed inset-y-0 left-0 hidden w-64 border-r border-[rgba(247,248,239,0.16)] text-[var(--paper)] lg:block">
         <div className="flex h-full flex-col">
           <div className="flex h-[var(--app-header-height)] shrink-0 items-center border-b border-[rgba(247,248,239,0.16)] px-5">
-            <Link
-              className="flex items-center gap-3 font-mono text-sm uppercase"
-              href="/"
-            >
-              <span className="flex h-9 w-9 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--cyan)] bg-[rgba(34,223,197,0.08)] text-[var(--cyan)]">
-                <Activity size={17} strokeWidth={1.8} />
-              </span>
-              <span>
-                PulseOps
-                <span className="mt-1 block font-mono text-[10px] uppercase text-[rgba(247,248,239,0.48)]">
-                  signal observatory
-                </span>
-              </span>
-            </Link>
+            <PulseBrand />
           </div>
           <nav className="min-h-0 flex-1 overflow-y-auto px-3 py-4">
             <NavGroup
@@ -191,20 +178,7 @@ export function AppShell({
         <header className="sticky top-0 z-20 border-b border-[var(--border-soft)] bg-[rgba(247,248,239,0.82)] px-5 shadow-[0_1px_0_rgba(34,223,197,0.18)] backdrop-blur lg:h-[var(--app-header-height)] lg:px-8">
           <div className="grid min-h-24 gap-4 py-4 lg:h-full lg:min-h-0 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:py-0">
             <div className="flex min-w-0 items-center justify-between gap-3 lg:hidden">
-              <Link
-                className="flex min-w-0 items-center gap-3 font-mono text-sm uppercase"
-                href="/"
-              >
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--signal)] bg-[rgba(34,223,197,0.08)] text-[var(--signal)]">
-                  <Activity size={17} strokeWidth={1.8} />
-                </span>
-                <span className="min-w-0">
-                  PulseOps
-                  <span className="mt-1 block truncate font-mono text-[10px] uppercase text-[var(--muted)]">
-                    {projectName}
-                  </span>
-                </span>
-              </Link>
+              <PulseBrand compact subtitle={projectName} tone="onLight" />
               <SignalIndicator label={streamState} tone="signal" />
             </div>
             <div className="grid min-w-0 gap-3 md:grid-cols-[minmax(0,1.1fr)_160px_160px] md:items-center">
