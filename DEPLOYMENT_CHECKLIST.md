@@ -5,6 +5,29 @@
 Deploy PulseOps without leaking secrets and keep the portfolio demo easy to
 verify.
 
+## Current Production
+
+Production URL:
+
+```text
+https://pulse-ops-chi.vercel.app
+```
+
+GitHub repository:
+
+```text
+https://github.com/aicha-btn/pulse-ops
+```
+
+Latest verified production checks:
+
+- landing returns `200`;
+- login returns `200`;
+- `/app` redirects signed-out users to login;
+- ingestion rejects missing API keys with `401`;
+- cron rejects missing secrets with `401`;
+- cron accepts `Authorization: Bearer <CRON_SECRET>` and runs aggregation.
+
 ## Before GitHub
 
 - Initialize the Git repository if it does not exist yet.
