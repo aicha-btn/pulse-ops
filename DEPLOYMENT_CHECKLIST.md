@@ -10,7 +10,7 @@ verify.
 Production URL:
 
 ```text
-https://pulse-ops-chi.vercel.app
+https://pulseops-analytics.vercel.app
 ```
 
 GitHub repository:
