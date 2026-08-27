@@ -1,0 +1,285 @@
+@import "tailwindcss";
+
+:root {
+  --background: #e5ecef;
+  --foreground: #17121a;
+  --ink: #17121a;
+  --paper: #f7f8ef;
+  --paper-soft: #dbe7e7;
+  --night: #17101f;
+  --cyan: #22dfc5;
+  --mint: #b9ff4a;
+  --amber: #ffb72c;
+  --coral: #ff4f7b;
+  --violet: #8f6cff;
+  --blue: #315dff;
+  --muted: #626c6c;
+  --line: rgba(23, 18, 26, 0.14);
+  --line-strong: rgba(23, 18, 26, 0.22);
+  --surface-base: #e5ecef;
+  --surface-paper: #f7f8ef;
+  --surface-raised: rgba(255, 255, 255, 0.56);
+  --surface-night: #17101f;
+  --surface-night-soft: rgba(23, 16, 31, 0.84);
+  --text-muted: #626c6c;
+  --text-faint: rgba(98, 108, 108, 0.72);
+  --border-soft: rgba(23, 18, 26, 0.1);
+  --border-medium: rgba(23, 18, 26, 0.16);
+  --border-inverse: rgba(247, 248, 239, 0.16);
+  --signal: #22dfc5;
+  --signal-soft: rgba(34, 223, 197, 0.12);
+  --healthy: #b9ff4a;
+  --healthy-ink: #447000;
+  --warning: #ffb72c;
+  --warning-ink: #8a5a00;
+  --critical: #ff4f7b;
+  --critical-ink: #a01843;
+  --silent: #747b88;
+  --radius-xs: 3px;
+  --radius-sm: 5px;
+  --radius-md: 8px;
+  --app-header-height: 96px;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background:
+    linear-gradient(135deg, rgba(49, 93, 255, 0.04) 25%, transparent 25%) 0 0 /
+      18px 18px,
+    linear-gradient(315deg, rgba(34, 223, 197, 0.035) 25%, transparent 25%) 0 0 /
+      22px 22px,
+    var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: var(--cyan);
+  color: var(--ink);
+}
+
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+}
+
+.hero-scene {
+  background:
+    linear-gradient(rgba(247, 248, 239, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(247, 248, 239, 0.035) 1px, transparent 1px),
+    var(--night);
+  background-size: 34px 34px, 34px 34px, auto;
+}
+
+.signal-sweep {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(34, 223, 197, 0.22),
+    transparent
+  );
+  animation: sweep 8s ease-in-out infinite;
+}
+
+.pulse-dot {
+  animation: breathe 3.4s ease-in-out infinite;
+}
+
+.pulse-dot:nth-child(2n) {
+  animation-delay: 0.7s;
+}
+
+.pulse-dot:nth-child(3n) {
+  animation-delay: 1.2s;
+}
+
+.bar-rise {
+  transform-origin: bottom;
+  animation: barRise 4.8s ease-in-out infinite;
+}
+
+.bar-rise:nth-child(2n) {
+  animation-delay: 0.5s;
+}
+
+.bar-rise:nth-child(3n) {
+  animation-delay: 1.1s;
+}
+
+.spectral-tile {
+  background:
+    linear-gradient(135deg, rgba(23, 18, 26, 0.08) 1px, transparent 1px),
+    linear-gradient(315deg, rgba(49, 93, 255, 0.08) 1px, transparent 1px),
+    var(--paper);
+  background-size: 22px 22px, 26px 26px, auto;
+}
+
+.night-lattice {
+  background:
+    linear-gradient(135deg, rgba(34, 223, 197, 0.12) 1px, transparent 1px),
+    linear-gradient(45deg, rgba(143, 108, 255, 0.12) 1px, transparent 1px),
+    var(--night);
+  background-size: 24px 24px, 32px 32px, auto;
+}
+
+.observatory-grid {
+  background:
+    radial-gradient(circle at 1px 1px, rgba(23, 18, 26, 0.09) 1px, transparent 0)
+      0 0 / 28px 28px,
+    linear-gradient(rgba(34, 223, 197, 0.045) 1px, transparent 1px) 0 0 /
+      100% 88px,
+    linear-gradient(90deg, rgba(23, 18, 26, 0.035) 1px, transparent 1px) 0 0 /
+      88px 100%,
+    var(--surface-base);
+}
+
+.telemetry-panel {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  border-top: 1px solid var(--border-medium);
+  background:
+    linear-gradient(180deg, rgba(247, 248, 239, 0.92), rgba(247, 248, 239, 0.74)),
+    var(--surface-paper);
+}
+
+.telemetry-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 1px 1px, rgba(23, 18, 26, 0.08) 1px, transparent 0)
+      0 0 / 22px 22px,
+    linear-gradient(90deg, transparent, rgba(34, 223, 197, 0.08), transparent);
+  opacity: 0.42;
+}
+
+.telemetry-panel > * {
+  position: relative;
+}
+
+.telemetry-panel-dark {
+  color: var(--paper);
+  border-color: var(--border-inverse);
+  background:
+    linear-gradient(180deg, rgba(23, 16, 31, 0.92), rgba(23, 16, 31, 0.82)),
+    var(--surface-night);
+}
+
+.telemetry-panel-dark::before {
+  background:
+    radial-gradient(circle at 1px 1px, rgba(34, 223, 197, 0.18) 1px, transparent 0)
+      0 0 / 24px 24px,
+    linear-gradient(90deg, transparent, rgba(143, 108, 255, 0.12), transparent);
+  opacity: 0.5;
+}
+
+.signal-node {
+  position: relative;
+  display: inline-flex;
+  height: 9px;
+  width: 9px;
+  border-radius: 999px;
+  background: var(--signal);
+  box-shadow: 0 0 0 4px rgba(34, 223, 197, 0.12);
+}
+
+.signal-node::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border-radius: inherit;
+  border: 1px solid rgba(34, 223, 197, 0.28);
+  animation: nodePulse 3.6s ease-in-out infinite;
+}
+
+.mini-trace-path {
+  stroke-dasharray: 170;
+  stroke-dashoffset: 0;
+  transition: opacity 180ms ease, stroke 180ms ease;
+}
+
+.telemetry-panel:hover .mini-trace-path {
+  opacity: 1;
+  stroke-dashoffset: 12;
+}
+
+.event-timeline {
+  background:
+    linear-gradient(180deg, rgba(34, 223, 197, 0.26), rgba(34, 223, 197, 0))
+      70px 0 / 1px 100% no-repeat;
+}
+
+@keyframes nodePulse {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.88);
+  }
+
+  50% {
+    opacity: 0.62;
+    transform: scale(1.18);
+  }
+}
+
+@keyframes sweep {
+  0%,
+  100% {
+    transform: translateX(-22%);
+    opacity: 0.25;
+  }
+
+  50% {
+    transform: translateX(34%);
+    opacity: 0.7;
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.42;
+    transform: scale(0.82);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes barRise {
+  0%,
+  100% {
+    transform: scaleY(0.68);
+  }
+
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signal-sweep,
+  .pulse-dot,
+  .bar-rise,
+  .signal-node::after {
+    animation: none;
+  }
+
+  .telemetry-panel:hover .mini-trace-path {
+    stroke-dashoffset: 0;
+  }
+}

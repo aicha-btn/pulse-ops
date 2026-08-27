@@ -1,0 +1,20 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1787498512237,
+      "tag": "0000_initial_pulseops_schema",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1787659172208,
+      "tag": "0001_add_ingestion_rate_limits",
+      "breakpoints": true
+    }
+  ]
+}
