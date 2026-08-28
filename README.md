@@ -1,130 +1,155 @@
 # PulseOps
 
-PulseOps is a fullstack product analytics and account health SaaS for small B2B
-teams. It receives product events, stores them in PostgreSQL, aggregates them,
-then turns the stream into readable activation, activity and account-health
-signals.
+PulseOps est un SaaS fullstack d'analytics produit et de santé des comptes pour
+les petites équipes B2B.
 
-The project is built as a portfolio piece to show a complete data product:
+L'application reçoit des événements produit, les valide, les stocke dans
+PostgreSQL, les agrège, puis transforme ce flux brut en signaux lisibles :
+activation, activité, comptes sains, comptes à risque et comptes devenus
+silencieux.
 
 ```text
-event -> validation -> storage -> aggregation -> visualization -> decision
+événement -> validation -> stockage -> agrégation -> visualisation -> décision
 ```
 
-## What It Demonstrates
+## Ce que le projet démontre
 
-- fullstack Next.js with TypeScript strict mode;
-- Supabase PostgreSQL and Supabase Auth;
-- Drizzle schema, migrations and typed database access;
-- secure ingestion API with hashed project API keys;
-- event payload validation with Zod;
-- PostgreSQL-backed rate limiting per API key;
-- idempotent event storage through stable `event_id` values;
-- aggregation jobs for activity, activation funnel and account health;
-- cron-ready aggregation endpoint secured with `CRON_SECRET`;
-- product dashboards with a custom Signal Observatory visual direction;
-- developer-oriented integration docs and live ingestion tester;
-- realistic demo dataset for a B2B SaaS telemetry story.
+- une application Next.js fullstack en TypeScript strict ;
+- une authentification avec Supabase Auth ;
+- une base PostgreSQL Supabase ;
+- un schéma Drizzle avec migrations et accès typé aux données ;
+- une API d'ingestion sécurisée par clés API projet ;
+- des clés API hachées avant stockage ;
+- une validation des payloads avec Zod ;
+- une limitation de débit par clé API ;
+- un stockage idempotent grâce à des `event_id` stables ;
+- des jobs d'agrégation pour l'activité, l'activation et la santé des comptes ;
+- un endpoint cron sécurisé avec `CRON_SECRET` ;
+- une interface produit avec une direction artistique Signal Observatory ;
+- une documentation d'intégration orientée développeur ;
+- un testeur d'ingestion utilisable depuis l'interface ;
+- un dataset de démonstration réaliste pour un SaaS B2B.
 
-## Product Scope
+## Périmètre produit
 
-PulseOps helps a small B2B team answer:
+PulseOps aide une petite équipe B2B à répondre à ces questions :
 
-1. Is the product active?
-2. Where does activation drop?
-3. Which accounts are healthy, weakening or silent?
-4. Did a product event actually arrive and get stored?
-5. Which signal should the team act on next?
+1. Le produit est-il actif ?
+2. Où l'activation décroche-t-elle ?
+3. Quels comptes sont sains, fragiles ou silencieux ?
+4. Un événement produit est-il bien arrivé et stocké ?
+5. Quel signal mérite une action en priorité ?
 
-The MVP includes:
+Le MVP inclut :
 
-- projects;
-- API key creation and revocation;
-- `POST /api/ingest/track`;
-- workspaces and signed-in users;
-- companies, tracked users and events;
-- event stream with accepted, ignored and rejected entries;
-- activation funnel;
-- activity over time;
-- transparent account health score;
-- inactive account queue;
-- project settings;
-- Supabase readiness page;
-- integration documentation and live tester.
+- projets ;
+- création et révocation de clés API ;
+- endpoint `POST /api/ingest/track` ;
+- workspaces et utilisateurs connectés ;
+- entreprises, utilisateurs suivis et événements ;
+- flux d'événements avec entrées acceptées, ignorées et rejetées ;
+- funnel d'activation ;
+- activité dans le temps ;
+- score de santé transparent ;
+- file de comptes inactifs ;
+- réglages projet ;
+- page de vérification Supabase ;
+- documentation d'intégration ;
+- testeur d'événements en direct.
 
-## Visual Direction
+## Direction artistique
 
-The app uses a direction called:
+La direction visuelle du produit est :
 
 ```text
 Signal Observatory / Product Telemetry Control Room
 ```
 
-The interface should feel like a professional SaaS product that listens to a
-living product stream. It avoids cyberpunk, generic CRM cards and decorative
-data visuals. Charts, event timelines and health states are designed to make the
-underlying telemetry easier to understand.
+L'interface doit donner l'impression d'un outil SaaS professionnel qui écoute le
+flux d'activité d'un produit vivant.
 
-Reusable product primitives live in:
+Le but n'est pas de faire une interface cyberpunk ou un dashboard générique. Les
+graphiques, timelines d'événements, badges de santé et signaux visuels doivent
+servir la compréhension de la donnée.
+
+Les primitives visuelles réutilisables sont dans :
 
 ```text
 src/components/app/pulse-primitives.tsx
 ```
 
-## Stack
+La signature de marque commune est dans :
 
-- Next.js 16 fullstack app;
-- React 19;
-- TypeScript strict;
-- Supabase PostgreSQL;
-- Supabase Auth;
-- Drizzle ORM;
-- Recharts;
-- Zod;
-- Vercel Cron;
-- GitHub Actions-ready npm scripts.
+```text
+src/components/pulse-brand.tsx
+```
 
-## Local Development
+## Stack technique
 
-Install dependencies:
+- Next.js 16 fullstack ;
+- React 19 ;
+- TypeScript strict ;
+- Supabase PostgreSQL ;
+- Supabase Auth ;
+- Drizzle ORM ;
+- Recharts ;
+- Zod ;
+- Vercel ;
+- cron HTTP externe pour les agrégations fréquentes ;
+- scripts npm prêts pour la validation locale et CI.
+
+## Déploiement
+
+URL de production :
+
+```text
+https://pulseops-analytics.vercel.app
+```
+
+Le dépôt GitHub est privé pendant la finalisation du projet.
+
+## Développement local
+
+Installer les dépendances :
 
 ```bash
 npm install
 ```
 
-Start the local server:
+Démarrer le serveur local :
 
 ```bash
 npm run dev
 ```
 
-Open:
+Ouvrir la landing page :
 
 ```text
 http://localhost:3000
 ```
 
-The product app is available at:
+Ouvrir l'application :
 
 ```text
 http://localhost:3000/app
 ```
 
-When Supabase Auth is configured, signed-out users are redirected to:
+Quand Supabase Auth est configuré, les utilisateurs non connectés sont redirigés
+vers :
 
 ```text
 http://localhost:3000/login
 ```
 
-## Environment Variables
+## Variables d'environnement
 
-Copy the example file:
+Copier le fichier d'exemple :
 
 ```bash
 cp .env.example .env.local
 ```
 
-Required for real local data:
+Variables nécessaires pour utiliser les vraies données :
 
 ```text
 DATABASE_URL
@@ -134,68 +159,70 @@ CRON_SECRET
 INGESTION_RATE_LIMIT_PER_MINUTE
 ```
 
-Useful for local demos:
+Variables utiles pour les démonstrations locales :
 
 ```text
 NEXT_PUBLIC_INGESTION_TEST_KEY
 SEED_DEMO_API_KEY
 ```
 
-Never commit `.env.local`. It contains database URLs and API keys.
+Ne jamais commit `.env.local`. Ce fichier contient les URLs de base de données
+et les clés privées.
 
-Full setup notes are in:
+Les notes complètes de configuration sont dans :
 
 ```text
 SUPABASE_SETUP.md
 ```
 
-## Database Setup
+## Base de données
 
-Run migrations:
+Lancer les migrations :
 
 ```bash
 npm run db:migrate
 ```
 
-Seed the demo dataset:
+Insérer le dataset de démonstration :
 
 ```bash
 npm run db:seed
 ```
 
-The deterministic seed creates:
+Le seed déterministe crée :
 
-- 1 demo workspace;
-- 1 demo project;
-- 8 companies;
-- 16 tracked users;
-- 851 product events;
-- 1 local ingestion API key.
+- 1 workspace de démonstration ;
+- 1 projet de démonstration ;
+- 8 entreprises ;
+- 16 utilisateurs suivis ;
+- 851 événements produit ;
+- 1 clé API d'ingestion locale.
 
-After manual ingestion tests, the local event count can be higher.
+Après des tests d'ingestion manuels, le nombre d'événements local peut être plus
+élevé.
 
-Run the first aggregation:
+Lancer une première agrégation :
 
 ```bash
 npm run jobs:aggregate
 ```
 
-Verify the real database:
+Vérifier la base réelle :
 
 ```bash
 npm run setup:smoke
 ```
 
-## Ingestion API
+## API d'ingestion
 
-Endpoint:
+Endpoint :
 
 ```text
 POST /api/ingest/track
 Authorization: Bearer <project_api_key>
 ```
 
-Example payload:
+Exemple de données envoyées :
 
 ```json
 {
@@ -204,7 +231,7 @@ Example payload:
   "occurred_at": "2026-08-27T12:30:00.000Z",
   "user": {
     "external_id": "user_42",
-    "email": "founder@example.com",
+    "email": "user@example.com",
     "name": "Aicha"
   },
   "company": {
@@ -217,26 +244,30 @@ Example payload:
 }
 ```
 
-Accepted events are stored in `events`. Duplicate `event_id` values are ignored
-instead of counted twice. Invalid payloads are recorded in the ingestion log when
-a valid API key identifies the project.
+Les événements acceptés sont stockés dans `events`.
 
-## Aggregations
+Les doublons sont détectés avec `event_id` et ignorés pour éviter de compter
+deux fois le même événement.
 
-The aggregation job recalculates:
+Les données invalides sont enregistrées dans le log d'ingestion lorsqu'une clé
+API valide permet d'identifier le projet.
 
-- daily activity;
-- activation funnel progress;
-- account health snapshots;
-- aggregation run status.
+## Agrégations et cron
 
-Local command:
+Le job d'agrégation recalcule :
+
+- l'activité quotidienne ;
+- la progression du funnel d'activation ;
+- les snapshots de santé des comptes ;
+- le statut des runs d'agrégation.
+
+Commande locale :
 
 ```bash
 npm run jobs:aggregate
 ```
 
-HTTP endpoint:
+Endpoint HTTP :
 
 ```text
 GET /api/jobs/aggregate
@@ -244,13 +275,14 @@ POST /api/jobs/aggregate
 Authorization: Bearer <CRON_SECRET>
 ```
 
-The endpoint accepts both `GET` and `POST`, so it can be called by Vercel Cron or
-another HTTP cron service.
+L'endpoint accepte `GET` et `POST`. Il peut donc être appelé par Vercel Cron ou
+par un service de cron HTTP externe.
 
-`vercel.json` keeps a daily fallback schedule that is compatible with Vercel
-Hobby. For the intended 5-minute product rhythm on a free setup, configure an
-external HTTP cron such as cron-job.org to call the same endpoint every 5 minutes
-with:
+`vercel.json` garde un fallback quotidien compatible avec le plan Hobby de
+Vercel.
+
+Pour le rythme produit prévu, l'agrégation est appelée toutes les 5 minutes avec
+un cron HTTP externe comme cron-job.org :
 
 ```text
 Authorization: Bearer <CRON_SECRET>
@@ -258,19 +290,19 @@ Authorization: Bearer <CRON_SECRET>
 
 ## Validation
 
-General validation:
+Validation générale :
 
 ```bash
 npm run validate
 ```
 
-Real-data validation with Supabase configured:
+Validation avec Supabase configuré :
 
 ```bash
 npm run validate:real
 ```
 
-Individual checks:
+Checks individuels :
 
 ```bash
 npm run lint
@@ -281,18 +313,18 @@ npm run setup:check:strict
 npm run setup:smoke
 ```
 
-## Demo Flow
+## Parcours de démonstration
 
-1. Open `/`.
-2. Open `/login` and sign in.
-3. Open `/app` and show Northstar Analytics.
-4. Open `/app/integration`.
-5. Send a demo event.
-6. Open `/app/events` and show the accepted event.
-7. Run `npm run jobs:aggregate`.
-8. Refresh `/app` to show the recalculated metrics.
+1. Ouvrir `/`.
+2. Ouvrir `/login` et se connecter.
+3. Ouvrir `/app` et présenter Northstar Analytics.
+4. Ouvrir `/app/integration`.
+5. Envoyer un événement de test.
+6. Ouvrir `/app/events` et montrer l'événement accepté.
+7. Lancer `npm run jobs:aggregate`.
+8. Rafraîchir `/app` pour montrer les métriques recalculées.
 
-The detailed presentation script is in:
+Le script de présentation détaillé est dans :
 
 ```text
 PULSEOPS_DEMO_SCRIPT.md
@@ -300,11 +332,12 @@ PULSEOPS_DEMO_SCRIPT.md
 
 ## Documentation
 
-- `PRODUCT_BRIEF.md` - product scope and decisions;
-- `ARCHITECTURE.md` - technical architecture;
-- `DESIGN_SYSTEM.md` - visual identity and design system;
-- `PLAN_PULSEOPS.md` - implementation plan;
-- `AGGREGATIONS.md` - metric calculations;
-- `DATASET.md` - realistic demo data;
-- `SUPABASE_SETUP.md` - real data setup;
-- `PULSEOPS_HANDOFF.md` - current state and handoff notes.
+- `PRODUCT_BRIEF.md` : périmètre produit et décisions ;
+- `ARCHITECTURE.md` : architecture technique ;
+- `DESIGN_SYSTEM.md` : identité visuelle et design system ;
+- `PLAN_PULSEOPS.md` : plan d'implémentation ;
+- `AGGREGATIONS.md` : calcul des métriques ;
+- `DATASET.md` : dataset réaliste ;
+- `SUPABASE_SETUP.md` : configuration des vraies données ;
+- `DEPLOYMENT_CHECKLIST.md` : checklist de mise en production ;
+- `PULSEOPS_HANDOFF.md` : état actuel et notes de passation.
